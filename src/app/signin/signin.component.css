@@ -1,0 +1,21 @@
+div{
+    display: block;
+}
+.container{
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.text-xs-center{
+    text-align: center;
+}
+h1{
+    font-size: 2.5rem;
+}
+.p-color{
+    color: green;
+}
+.d-center{
+    text-align: center;
+}

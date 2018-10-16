@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="d-flex py-2">
+  <img src="{{article.author.image}}" height=25 width=25 class="rounded-circle">
+  <div>
+  <div class="px-2">{{article.author.username}}</div>
+  <div class="date text-secondary">{{article.updatedAt| date: 'MMMM d, y'}}</div>
+</div>
+</div>
+<a  class="nav-link " style="color: black; text-decoration: none"  routerLink="/article/{{article.slug}}" routerLinkActive="active">
+<div>
+  <h5>{{article.title}}</h5>
+  <p class="text-secondary">{{article.description}}</p>
+</div>
+</a>
+<button (click)="getArticle(article.slug)" class="btn-link btn text-secondary font-weight-light fsize"><p>Read More...</p></button>
+  <hr/>
+</div>

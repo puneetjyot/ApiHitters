@@ -1,0 +1,18 @@
+p{
+    font-size: 20px;
+}
+.smartbar{
+    text-align:center
+}
+.center {
+    width: 800px;
+  }
+  .container-center{
+    text-align: center
+}
+.container{
+    display: inline-block;
+}
+  a{
+      color:green;
+  }

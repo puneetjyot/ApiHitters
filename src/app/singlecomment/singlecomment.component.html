@@ -1,0 +1,19 @@
+<div class="container justify-content-center pb-5">
+
+    <div class="card">
+        <div class="card-body">
+          <p class="card-text">{{comment.body}}</p>
+        </div>
+        <div class="card-footer">
+            <div class="img-name d-flex div-secondary">
+                <img src="{{comment.author.image}}" height=35 width=35 class="rounded-circle">
+                <div class="py-1">
+                <p class="px-2 p-name">{{comment.author.username}}</p>
+              </div>
+              <div class="py-1">
+                <p class="font-weight-light fsize">{{comment.updatedAt | date: 'MMMM d, y'}}</p>
+              </div>
+        </div>
+      </div>
+
+</div>
