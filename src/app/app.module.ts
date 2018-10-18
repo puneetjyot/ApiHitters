@@ -18,6 +18,12 @@ import { ArticlebodyComponent } from './articlebody/articlebody.component';
 import { SmartbarComponent } from './smartbar/smartbar.component';
 import { CommentComponent } from './comment/comment.component';
 import { SinglecommentComponent } from './singlecomment/singlecomment.component';
+import { Home1Component } from './home1/home1.component';
+import { UsernavComponent } from './usernav/usernav.component';
+import { ProfileComponent } from './profile/profile.component';
+import { SettingComponent } from './setting/setting.component';
+import { CreatearticleComponent } from './createarticle/createarticle.component';
+import { FooterComponent } from './footer/footer.component';
 
 const appRoutes : Routes = [
   {
@@ -31,6 +37,18 @@ const appRoutes : Routes = [
   },
   {
     path:'article/:slug',component:ArticledescriptionComponent
+  },
+  {
+    path:'home',component:Home1Component
+  },
+  {
+    path:'setting',component:SettingComponent
+  },
+  {
+    path:'createarticle',component:CreatearticleComponent
+  },
+  {
+    path:'profile',component:ProfileComponent
   }
  
 ];
@@ -52,6 +70,12 @@ const appRoutes : Routes = [
     SmartbarComponent,
     CommentComponent,
     SinglecommentComponent,
+    Home1Component,
+    UsernavComponent,
+    ProfileComponent,
+    SettingComponent,
+    CreatearticleComponent,
+    FooterComponent,
    
   ],
   imports: [

@@ -5,3 +5,6 @@
 .date{
     font-size: .8rem;
 }
+a:hover,img:hover,p:hover,h5:hover{
+    color: green
+}

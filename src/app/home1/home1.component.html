@@ -1,0 +1,8 @@
+
+<app-usernav></app-usernav>
+<div class="container py-5" >
+<app-navtabs (loadGlobal)="displayclick($event)" (loadYour)="displayclick($event)"></app-navtabs>
+<br/>
+
+<app-showarticle [(feeds)]="feedteller"></app-showarticle>
+</div>

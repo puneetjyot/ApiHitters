@@ -10,6 +10,7 @@ export class FrameComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+  //  window.localStorage.removeItem("token")
   }
 
 }

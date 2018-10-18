@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ArticlesService } from '../articles.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-signin',
@@ -17,7 +19,8 @@ export class SigninComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private fb: FormBuilder,
-    private services:ArticlesService
+    private services:ArticlesService,
+    private router:Router
   ) {
     this.authForm = this.fb.group({
       'email': ['', Validators.required],
@@ -43,9 +46,13 @@ export class SigninComponent implements OnInit {
    if(credentials.username==undefined){
      console.log("yes")
      this.services.userLogin(credentials);
+     this.router.navigateByUrl('/home');
    }
    else{
      console.log("no")
+     this.services.userRegistration(credentials);
+     this.router.navigateByUrl('/login');
+
    }
     console.log(credentials);
     credentials.username=''
