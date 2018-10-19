@@ -49,7 +49,7 @@ const appRoutes : Routes = [
     path:'createarticle',component:CreatearticleComponent
   },
   {
-    path:'profile',component:ProfileComponent
+    path:'profile/:username',component:ProfileComponent
   }
  
 ];

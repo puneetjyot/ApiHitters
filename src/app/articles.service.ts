@@ -59,6 +59,20 @@ export class ArticlesService {
   }
     )
   }
+
+  getProfile(username:string){
+    return this.Http.get(`${this.BASE_URL}/profiles/username`,
+    {
+      headers:{
+        'Content-Type' : 'application/json; charset=utf-8',
+        'Accept'       : 'application/json',
+        'Authorization': `Token ${window.localStorage.getItem("token")}`,
+      }
+
+    }
+    )
+  }
+
   userRegistration(credentials:Credentials){
     console.log(credentials.email)
    return this.Http.post(`${this.BASE_URL}/users`,

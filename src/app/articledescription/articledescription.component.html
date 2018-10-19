@@ -10,6 +10,13 @@
 <app-articlebody [article]="displaydata"></app-articlebody>
 </div>
 <div class="pt-5">
+        <div *ngIf="isLoggedIn">
         <app-writecomment [article]="displaydata"></app-writecomment>
+</div>
+<div  *ngIf="!isLoggedIn">
+ <a class="link-success" routerLink="/login">Sign in </a>or <a routerLink="/register">sign up </a>to add comments on this article.
+
+      
+</div>
 <app-comment></app-comment>
 </div>
