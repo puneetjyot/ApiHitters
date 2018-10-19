@@ -11,7 +11,7 @@ export class ArticledescriptionComponent implements OnInit {
 
   displaydata:any;
   slug:string='';
- 
+isLoggedIn:boolean;
 
   constructor(
     private services:ArticlesService,
@@ -22,6 +22,7 @@ export class ArticledescriptionComponent implements OnInit {
     this.route.url.subscribe(data => {
       this.slug = data[data.length - 1].path;
     console.log(this.slug)
+
     });
 
     this.services.getArticle(this.slug)
@@ -32,6 +33,12 @@ export class ArticledescriptionComponent implements OnInit {
     }
 
     )
+    if(window.localStorage.getItem("token")!=null){
+    this.isLoggedIn=true;
+    }
+    else{
+      this.isLoggedIn=false;
+    }
 
   }
 

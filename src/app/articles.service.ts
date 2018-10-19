@@ -7,6 +7,18 @@ interface Credentials{
   username:string
 
 }
+interface ArticleValues{
+
+  Title:string;
+  Body:string;
+  Subject:string;
+  Tags:string;
+
+}
+
+interface Comment{
+  comment:string;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -32,6 +44,20 @@ export class ArticlesService {
       console.log(window.localStorage.getItem("token"))
     return this.Http.get(`${this.BASE_URL}/articles`)
   }
+
+  
+
+  }
+  getYourProfile(){
+    return this.Http.get(`${this.BASE_URL}/user`,
+  {
+    headers:{
+      'Content-Type' : 'application/json; charset=utf-8',
+      'Accept'       : 'application/json',
+      'Authorization': `Token ${window.localStorage.getItem("token")}`,
+    }
+  }
+    )
   }
   userRegistration(credentials:Credentials){
     console.log(credentials.email)
@@ -75,6 +101,69 @@ export class ArticlesService {
    
    
    )
+  }
+
+  postArticle(values:ArticleValues){
+
+    if(window.localStorage.getItem("token")!=null){
+    return this.Http.post(`${this.BASE_URL}/articles`,
+    {
+      "article": {
+        "title": values.Title,
+        "description": values.Subject,
+        "body": values.Body,
+        "tagList": ["reactjs", "angularjs", "dragons"]
+      }
+
+    },
+    {
+      headers: {
+        'Content-Type' : 'application/json; charset=utf-8',
+        'Accept'       : 'application/json',
+        'Authorization': `Token ${window.localStorage.getItem("token")}`,
+      }
+    })
+    .subscribe(data=>{
+      console.log("POST Request is successful",data)
+     
+     },
+     error=>{
+      console.log("Error", error);
+     }
+     
+     
+     )  
+  }
+  }
+
+  postComment(values:Comment,slug:string){
+
+    return this.Http.post(`${this.BASE_URL}/articles/${slug }/comments`,
+    {
+      "comment": {
+        "body": values.comment
+      }
+    },
+    {
+      headers: {
+        'Content-Type' : 'application/json; charset=utf-8',
+        'Accept'       : 'application/json',
+        'Authorization': `Token ${window.localStorage.getItem("token")}`,
+      }
+
+     })
+     .subscribe(data=>{
+      console.log("POST Request is successful",data)
+     
+     
+     },
+     error=>{
+      console.log("Error", error);
+     }
+     
+     
+     )  
+
   }
 
 

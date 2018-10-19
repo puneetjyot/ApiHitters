@@ -2,16 +2,18 @@
 <div class="container">
   <div class="d-flex py-2">
       <a class="nav-link" style="color:black;" routerLink="/profile" routerLinkActive="active">
-
+<div>
     <img src="{{article.author.image}}" height=25 width=25 class="rounded-circle">
-  <div>
+  </div>
+    <div>
   <div class="px-2">
-    <p>{{article.author.username}}
+    <p style="color:rgb(30, 247, 30)">{{article.author.username}}
       </p>
     </div>
+  </div>
 
   <div class="date text-secondary">{{article.updatedAt| date: 'MMMM d, y'}}</div>
-</div>
+
 </a>
 </div>
 

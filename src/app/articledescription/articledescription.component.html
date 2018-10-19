@@ -1,8 +1,15 @@
+<div *ngIf="!isLoggedIn">
 <app-navbars></app-navbars>
+</div>
+<div *ngIf="isLoggedIn">
+<app-usernav></app-usernav>
+</div>
+                
 <app-articlebanner [article]="displaydata"></app-articlebanner>
 <div class="pt-3">
 <app-articlebody [article]="displaydata"></app-articlebody>
 </div>
 <div class="pt-5">
+        <app-writecomment [article]="displaydata"></app-writecomment>
 <app-comment></app-comment>
 </div>

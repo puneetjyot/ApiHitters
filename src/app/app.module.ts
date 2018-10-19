@@ -24,6 +24,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { SettingComponent } from './setting/setting.component';
 import { CreatearticleComponent } from './createarticle/createarticle.component';
 import { FooterComponent } from './footer/footer.component';
+import { WritecommentComponent } from './writecomment/writecomment.component';
 
 const appRoutes : Routes = [
   {
@@ -76,14 +77,15 @@ const appRoutes : Routes = [
     SettingComponent,
     CreatearticleComponent,
     FooterComponent,
+    WritecommentComponent,
    
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     RouterModule.forRoot(
-      appRoutes,
-      {enableTracing:false}
+      appRoutes,{onSameUrlNavigation: "reload"}, 
+  
     ),
     FormsModule,
     ReactiveFormsModule
