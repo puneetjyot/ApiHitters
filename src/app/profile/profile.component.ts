@@ -32,6 +32,7 @@ profile:any;
     .subscribe(data=>{
             //@ts-ignore
       this.profile=data.profile;
+      console.log(this.profile)
     }
 
     )

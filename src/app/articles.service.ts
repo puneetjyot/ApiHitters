@@ -61,7 +61,7 @@ export class ArticlesService {
   }
 
   getProfile(username:string){
-    return this.Http.get(`${this.BASE_URL}/profiles/username`,
+    return this.Http.get(`${this.BASE_URL}/profiles/${username}`,
     {
       headers:{
         'Content-Type' : 'application/json; charset=utf-8',
@@ -71,6 +71,10 @@ export class ArticlesService {
 
     }
     )
+  }
+
+  getMyArticle(username:string){
+    return this.Http.get(`${this.BASE_URL}/articles?author=${username}`)
   }
 
   userRegistration(credentials:Credentials){
