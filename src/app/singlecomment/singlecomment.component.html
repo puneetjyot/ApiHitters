@@ -1,3 +1,4 @@
+<div *ngIf="isRender">
 <div class="container justify-content-center pb-5">
 
     <div class="card">
@@ -5,7 +6,8 @@
           <p class="card-text">{{comment.body}}</p>
         </div>
         <div class="card-footer">
-            <div class="img-name d-flex div-secondary">
+            <div class="img-name  d-flexdiv-secondary justify-content-between">
+              <div class=" d-flex">
                 <img src="{{comment.author.image}}" height=35 width=35 class="rounded-circle">
                 <div class="py-1">
                 <p class="px-2 p-name">{{comment.author.username}}</p>
@@ -13,7 +15,13 @@
               <div class="py-1">
                 <p class="font-weight-light fsize">{{comment.updatedAt | date: 'MMMM d, y'}}</p>
               </div>
+            </div>
+              <div class="rightside d-flex" *ngIf="myprofile.username===comment.author.username">
+                <button class="btn " (click)="deleteComment()"><i class="fas fa-trash-alt"></i></button>
+              </div>
         </div>
       </div>
 
+</div>
+</div>
 </div>

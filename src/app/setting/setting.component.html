@@ -1,43 +1,26 @@
 <app-usernav></app-usernav>
-<div class="settings-page pt-4">
-    <div class="container page">
-      <div class="row">
+<div class="row">
+    <div class="col-sm-3">
   
-        <div class="col-md-6 offset-md-3 col-xs-12">
-          <h1 class="text-xs-center">Your Settings</h1>
-  
-          <form>
-            <fieldset>
-                <fieldset class="form-group">
-                  <input class="form-control" type="text" placeholder="URL of profile picture">
-                </fieldset>
-                <fieldset class="form-group">
-                  <input class="form-control form-control-lg" type="text" placeholder="Your Name">
-                </fieldset>
-                <fieldset class="form-group">
-                  <textarea class="form-control form-control-lg" rows="8" placeholder="Short bio about you"></textarea>
-                </fieldset>
-                <fieldset class="form-group">
-                  <input class="form-control form-control-lg" type="text" placeholder="Email">
-                </fieldset>
-                <fieldset class="form-group">
-                  <input class="form-control form-control-lg" type="password" placeholder="Password">
-                </fieldset>
-                <div class="d-flex justify-content-end">
-                <button class="btn btn-lg btn-success align-content-end">
-                  Update Settings
-                </button>
-              </div>
-            </fieldset>
-          </form>
-        
-        <hr/>
-        <div class=" d-flex justify-content-center">
-            <button class="btn btn-lg btn-outline-danger align-content-end">
-                Log Out
-              </button>
+    </div>
+    <div class="col-sm-6 mb-4">
+      <form class="form-group" (ngSubmit)="onSubmit()" [formGroup]="userInputs">
+        <input type="text" formControlName="url" class="form-control my-3 p-4" placeholder="URL of profile picture" autocomplete="off">
+        <input type="text" formControlName="username" class="form-control my-3 p-4" placeholder="Username" value="" required autocomplete="off">
+        <textarea formControlName="bio" rows="8" cols="80" class="form-control my-3 p-4" placeholder="Short bio about you"></textarea>
+        <input type="text" formControlName="email" class="form-control my-3 p-4" placeholder="Email" value="" required autocomplete="off">
+        <input type="password" formControlName="password" class="form-control my-3 p-4" placeholder="New Password">
+        <div class="d-flex justify-content-end">
+          <input type="submit" value="Update Settings" class="btn btn-dark" [disabled]="!userInputs.valid">
         </div>
-      </div>
-      </div>
+      </form>
+      <hr>
+      <button class="btn btn-outline-danger" name="button" (click)="logoutClicked()">Logout</button>
+    </div>
+    <div class="col-sm-3">
+  
     </div>
   </div>
+  
+  
+  

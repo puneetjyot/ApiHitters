@@ -12,7 +12,7 @@ export class ArticledescriptionComponent implements OnInit {
   displaydata:any;
   slug:string='';
 isLoggedIn:boolean;
-
+isRender:boolean=false;
   constructor(
     private services:ArticlesService,
     private route:ActivatedRoute
@@ -30,6 +30,7 @@ isLoggedIn:boolean;
       //@ts-ignore
       this.displaydata=data.article;
       console.log(this.displaydata)
+      this.isRender=true;
     }
 
     )
@@ -39,7 +40,6 @@ isLoggedIn:boolean;
     else{
       this.isLoggedIn=false;
     }
-
   }
 
 }

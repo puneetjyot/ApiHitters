@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient }    from '@angular/common/http';
+import { Router } from '@angular/router';
+
 
 interface Credentials{
   email:string,
@@ -29,7 +31,8 @@ export class ArticlesService {
   
 
   BASE_URL=" https://conduit.productionready.io/api";
-  constructor(private Http:HttpClient) { }
+  constructor(private Http:HttpClient,
+    private router:Router) { }
 
   getAllArticles(){
     return this.Http.get(`${this.BASE_URL}/articles`)
@@ -149,8 +152,8 @@ export class ArticlesService {
    return this.Http.post(`${this.BASE_URL}/users/login`,
    {
     "user":{
-      "email": "punadsbhsdhssxa@google.com",
-      "password":"abcxssxssaassa"
+      "email": "pandaxpress@gmail.com",
+      "password":"pandapanda"
     }
    })
    .subscribe(data=>{
@@ -277,6 +280,48 @@ export class ArticlesService {
      )  
   }
 
+    deleteComment(slug:string,id:number){
+      return this.Http.delete(`${this.BASE_URL}/articles/${slug}/comments/${id}`,
+    
+      {
+        headers: {
+          'Content-Type' : 'application/json; charset=utf-8',
+          'Accept'       : 'application/json',
+          'Authorization': `Token ${window.localStorage.getItem("token")}`,
+        }
+  
+       })
+       .subscribe(data=>{
+        console.log("POST Request is successful",data)
+       
+       
+       },
+       error=>{
+        console.log("Error", error);
+       }
+       
+       
+       )  
 
+    }
 
+    updateUser(user:object){
+      return this.Http.put(`${this.BASE_URL}/user`,
+      user,
+      {
+        headers: {
+          'Content-Type' : 'application/json; charset=utf-8',
+          'Accept'       : 'application/json',
+          'Authorization': `Token ${window.localStorage.getItem("token")}`,
+        }
+      }
+
+      )
+    }
+
+    logout(){
+      this.router.navigateByUrl('/');
+      window.localStorage.removeItem("token")
+
+    }
 }

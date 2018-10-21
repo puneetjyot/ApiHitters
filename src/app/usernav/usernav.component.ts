@@ -7,7 +7,7 @@ import {ArticlesService} from '../articles.service'
 })
 export class UsernavComponent implements OnInit {
   currentUser:any;
- 
+ isRender:boolean=false;
   
   constructor(
     private services:ArticlesService
@@ -17,9 +17,11 @@ export class UsernavComponent implements OnInit {
     this.services.getYourProfile()
     .subscribe(data=>{
       this.currentUser=data;
+      this.isRender=true;
     }
+    
       )
-      console.log(this.currentUser.user.username)
-  }
+   
+    }
 
 }
