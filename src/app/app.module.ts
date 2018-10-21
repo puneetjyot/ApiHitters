@@ -28,6 +28,7 @@ import { WritecommentComponent } from './writecomment/writecomment.component';
 import { NavpilsComponent } from './navpils/navpils.component';
 import { MyarticlesComponent } from './myarticles/myarticles.component';
 import { HomearticlesComponent } from './homearticles/homearticles.component';
+import { FavouritearticlesComponent } from './favouritearticles/favouritearticles.component';
 
 const appRoutes : Routes = [
   {
@@ -84,6 +85,7 @@ const appRoutes : Routes = [
     NavpilsComponent,
     MyarticlesComponent,
     HomearticlesComponent,
+    FavouritearticlesComponent,
    
   ],
   imports: [

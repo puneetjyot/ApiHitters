@@ -11,6 +11,8 @@ export class ProfileComponent implements OnInit {
 myprofile:any;
 username:string;
 profile:any;
+isLoggedIn:boolean;
+feedTeller:string;
   constructor(
     private services:ArticlesService,
     private route:ActivatedRoute
@@ -20,13 +22,20 @@ profile:any;
     this.route.url.subscribe(data => {
       this.username = data[data.length - 1].path;
     console.log(this.username);
+    if(window.localStorage.getItem("token")!=null){
+      this.isLoggedIn=true;
+    }
+    else{
+      this.isLoggedIn=false;
+    }
     
   }),
     this.services.getYourProfile()
     .subscribe(data=>{
-      console.log(data)
       //@ts-ignore
-      this.myprofile=data.user;
+      this.myprofile=data.user.username;
+      console.log(this.myprofile)
+
     }),
     this.services.getProfile(this.username)
     .subscribe(data=>{
@@ -36,6 +45,12 @@ profile:any;
     }
 
     )
+    
+   
+  }
+  displayclick(feed){
+    this.feedTeller=feed;
+    console.log(feed)
   }
 
 

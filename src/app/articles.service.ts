@@ -39,10 +39,18 @@ export class ArticlesService {
     console.log(slug)
     return this.Http.get(`${this.BASE_URL}/articles/${slug}/comments`)
   }
-  getYourArticle(){
+  getfeedArticle(){
     if(window.localStorage.getItem("token")!=null){
       console.log(window.localStorage.getItem("token"))
-    return this.Http.get(`${this.BASE_URL}/articles`)
+    return this.Http.get(`${this.BASE_URL}/articles/feed`,
+    {
+      headers:{
+        'Content-Type' : 'application/json; charset=utf-8',
+        'Accept'       : 'application/json',
+        'Authorization': `Token ${window.localStorage.getItem("token")}`,
+      }
+    }
+    )
   }
 
   
@@ -75,6 +83,33 @@ export class ArticlesService {
 
   getMyArticle(username:string){
     return this.Http.get(`${this.BASE_URL}/articles?author=${username}`)
+  }
+
+  getFavouriteArticles(username:string){
+    return this.Http.get(`${this.BASE_URL}/articles?favorited=${username}`)
+
+  }
+
+  postFavCount(slug:string){
+    return this.Http.post(`${this.BASE_URL}/articles/${slug}/favorite`,
+    {
+      headers: {
+        'Content-Type' : 'application/json; charset=utf-8',
+        'Accept'       : 'application/json',
+        'Authorization': `Token ${window.localStorage.getItem("token")}`,
+      }
+    }
+    )
+    .subscribe(data=>{
+      console.log("POST Request is successful",data)
+     },
+     error=>{
+      console.log("Error", error);
+     }
+     
+     
+     )
+
   }
 
   userRegistration(credentials:Credentials){

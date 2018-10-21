@@ -1,4 +1,10 @@
-<app-navbars></app-navbars>
+<div *ngIf="!isLoggedIn">
+<app-navbars ></app-navbars>
+</div>
+<div *ngIf="isLoggedIn">
+    <app-usernav></app-usernav>
+    </div>
+
 <div class="user-info">
 <div class="container">
   <div class="row">
@@ -12,22 +18,27 @@
  
 </div>
 </div>
-<div class="m-2 pb-3 ">
-<div>
+ <div class="m-2 pb-3"> 
+<div *ngIf="username!==myprofile">
     <button class="btn btn-outline-secondary btn-right px-2">
         <i class="fas fa-plus"></i>
         Follow {{username}}
     </button>
   
 </div>
-<div>
+<div *ngIf="username===myprofile">
     <button class="btn btn-outline-secondary btn-right px-2">
         <i class="fas fa-cog"></i>
         Edit Profile Setting
     </button>
   
 </div>
-</div>
-<app-navpils></app-navpils>
-
+ </div>
+<app-navpils  (loadmine)="displayclick($event)" (loadfavourite)="displayclick($event)"></app-navpils>
+<div *ngIf="feedTeller=='mine'">
 <app-myarticles [profile]="profile.username"></app-myarticles>
+</div>
+<div *ngIf="feedTeller=='favourite'">
+    <app-favouritearticles [profile]="profile.username"></app-favouritearticles>
+
+</div>

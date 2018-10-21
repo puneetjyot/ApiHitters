@@ -1,0 +1,6 @@
+<div *ngFor="let article of displaydata">
+  <div *ngIf="displaydata==null">
+    <p>No articles yet...</p>
+  </div>
+<app-singlearticle [article]="article"></app-singlearticle>
+</div>

@@ -1,9 +1,18 @@
 
 <div class="container">
+    <div class="fav-icon">
+        <button class="btn align-content-end btn-sm " (click)="favArticle()">
+            <i class="far fa-heart"></i>
+            {{article.favoritesCount}}
+        </button>
+        </div>
   <div class="d-flex py-2">
+      
+      
       <a class="nav-link" style="color:black;" routerLink="/profile/{{article.author.username}}" routerLinkActive="active">
 <div>
     <img src="{{article.author.image}}" height=25 width=25 class="rounded-circle">
+    
   </div>
     <div>
   <div class="px-2">
@@ -17,6 +26,7 @@
 </a>
 </div>
 
+
 <a  class="nav-link " style="color: black;"  routerLink="/article/{{article.slug}}" routerLinkActive="active">
 <div>
   <h5>{{article.title}}</h5>
@@ -24,5 +34,8 @@
 </div>
 </a>
 <button (click)="getArticle(article.slug)" class="btn-link btn text-secondary font-weight-light fsize"><p>Read More...</p></button>
-  <hr/>
-</div>
+ 
+
+
+    <hr/>
+  </div>

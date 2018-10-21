@@ -8,3 +8,6 @@
 a:hover,img:hover,p:hover,h5:hover{
     color: green
 }
+.fav-icon{
+    float: right;
+}

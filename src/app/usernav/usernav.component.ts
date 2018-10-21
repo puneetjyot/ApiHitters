@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,Input} from '@angular/core';
 import {ArticlesService} from '../articles.service'
 @Component({
   selector: 'app-usernav',
@@ -7,6 +7,8 @@ import {ArticlesService} from '../articles.service'
 })
 export class UsernavComponent implements OnInit {
   currentUser:any;
+ 
+  
   constructor(
     private services:ArticlesService
   ) { }

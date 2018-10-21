@@ -43,7 +43,7 @@ export class ShowarticleComponent implements OnInit,OnChanges {
    })
   }
   else{
-  this.services.getYourArticle()
+  this.services.getfeedArticle()
   .subscribe(data=>{
          //@ts-ignore
 
