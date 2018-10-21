@@ -1,3 +1,4 @@
+<div *ngIf="isRender">
 <div *ngIf="!isLoggedIn">
 <app-navbars ></app-navbars>
 </div>
@@ -19,13 +20,27 @@
 </div>
 </div>
  <div class="m-2 pb-3"> 
-<div *ngIf="username!==myprofile">
-    <button class="btn btn-outline-secondary btn-right px-2">
-        <i class="fas fa-plus"></i>
-        Follow {{username}}
-    </button>
-  
-</div>
+
+<ng-container *ngIf="followed">
+
+        <div *ngIf="username!==myprofile">
+            <button class="btn btn-outline-secondary btn-right px-2" (click)="Unfollow()" id="myButton1" >
+                <i class="fas fa-plus"></i>
+                UnFollow {{username}}
+            </button>
+          
+        </div>
+        </ng-container>
+        <ng-container *ngIf="!followed">
+
+                <div *ngIf="username!==myprofile">
+                    <button class="btn btn-outline-secondary btn-right px-2" (click)="follow()" id="myButton1" >
+                        <i class="fas fa-plus"></i>
+                        Follow {{username}}
+                    </button>
+                  
+                </div>
+                </ng-container>
 <div *ngIf="username===myprofile">
     <button class="btn btn-outline-secondary btn-right px-2">
         <i class="fas fa-cog"></i>
@@ -41,4 +56,5 @@
 <div *ngIf="feedTeller=='favourite'">
     <app-favouritearticles [profile]="profile.username"></app-favouritearticles>
 
+</div>
 </div>

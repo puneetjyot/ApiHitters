@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {ArticlesService} from '../articles.service';
+import { Router } from '@angular/router';
+
 
 
 @Component({
@@ -16,7 +18,8 @@ export class SinglearticleComponent implements OnInit {
 
   constructor
   (
-  private services:ArticlesService
+  private services:ArticlesService,
+  private router:Router
     )
      { }
 
@@ -27,6 +30,12 @@ export class SinglearticleComponent implements OnInit {
     
   }
     favArticle(){
+      if(window.localStorage.getItem("token")!=null){
       this.services.postFavCount(this.article.slug)
     }
+    else{
+      this.router.navigateByUrl('/register');
+
+    }
+  }
 }

@@ -9,12 +9,11 @@ import { SimpleChanges } from '@angular/core';
   selector: 'app-showarticle',
   templateUrl: './showarticle.component.html',
   styleUrls: ['./showarticle.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
 
 })
-export class ShowarticleComponent implements OnInit,OnChanges {
+export class ShowarticleComponent implements OnInit {
 
-  @Input() feeds:string;
+ 
  
 
 
@@ -23,36 +22,15 @@ export class ShowarticleComponent implements OnInit,OnChanges {
 
   ngOnInit() {
     
-    this.services.getAllArticles()
+    this.services.getfeedArticle()
    .subscribe(data=>{
      //@ts-ignore
      this.displayData=data.articles;
      console.log(this.displayData)
    });
   }
-  ngOnChanges(changes: SimpleChanges) {
-
-    this.feeds=changes.feeds.currentValue;
-   console.log(this.feeds)
-   if(this.feeds=="global"){
-   this.services.getAllArticles()
-   .subscribe(data=>{
-     //@ts-ignore
-     this.displayData=data.articles;
-     console.log(this.displayData)
-   })
-  }
-  else{
-  this.services.getfeedArticle()
-  .subscribe(data=>{
-         //@ts-ignore
-
-    this.displayData=data.articles;
-    console.log(this.displayData)
-  })
-  }
-
-}
+  
+  
 
 
 }

@@ -25,6 +25,9 @@ interface Comment{
 })
 
 export class ArticlesService {
+
+  
+
   BASE_URL=" https://conduit.productionready.io/api";
   constructor(private Http:HttpClient) { }
 
@@ -68,8 +71,11 @@ export class ArticlesService {
     )
   }
 
-  getProfile(username:string){
+    
+  getProfile(username:string,isLoggedIn:boolean){
+    if(isLoggedIn){
     return this.Http.get(`${this.BASE_URL}/profiles/${username}`,
+    
     {
       headers:{
         'Content-Type' : 'application/json; charset=utf-8',
@@ -79,6 +85,10 @@ export class ArticlesService {
 
     }
     )
+  }
+  else{
+    return this.Http.get(`${this.BASE_URL}/profiles/${username}`)
+  }
   }
 
   getMyArticle(username:string){
@@ -92,6 +102,7 @@ export class ArticlesService {
 
   postFavCount(slug:string){
     return this.Http.post(`${this.BASE_URL}/articles/${slug}/favorite`,
+    {},
     {
       headers: {
         'Content-Type' : 'application/json; charset=utf-8',
@@ -218,6 +229,54 @@ export class ArticlesService {
      )  
 
   }
+
+  followUser(username:string){
+    return this.Http.post(`${this.BASE_URL}/profiles/${username}/follow`,
+    {},
+    {
+      headers: {
+        'Content-Type' : 'application/json; charset=utf-8',
+        'Accept'       : 'application/json',
+        'Authorization': `Token ${window.localStorage.getItem("token")}`,
+      }
+
+     })
+     .subscribe(data=>{
+      console.log("POST Request is successful",data)
+     
+     
+     },
+     error=>{
+      console.log("Error", error);
+     }
+     
+     
+     )  
+  }
+  UnfollowUser(username:string){
+    return this.Http.delete(`${this.BASE_URL}/profiles/${username}/follow`,
+    
+    {
+      headers: {
+        'Content-Type' : 'application/json; charset=utf-8',
+        'Accept'       : 'application/json',
+        'Authorization': `Token ${window.localStorage.getItem("token")}`,
+      }
+
+     })
+     .subscribe(data=>{
+      console.log("POST Request is successful",data)
+     
+     
+     },
+     error=>{
+      console.log("Error", error);
+     }
+     
+     
+     )  
+  }
+
 
 
 }
