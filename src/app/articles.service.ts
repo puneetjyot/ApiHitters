@@ -49,7 +49,7 @@ export class ArticlesService {
     }
 
   getAllArticles(offset){
-    if(window.localStorage.getItem("token")!=""){
+    if(window.localStorage.getItem("token")!=undefined){
     return this.Http.get(`${this.BASE_URL}/articles?offset=${offset}`,
     {
       headers:{
@@ -166,6 +166,18 @@ export class ArticlesService {
     )
     
 
+  }
+  delFavCount(slug:string){
+    return this.Http.delete(`${this.BASE_URL}/articles/${slug}/favorite`,
+    
+    {
+      headers: {
+        'Content-Type' : 'application/json; charset=utf-8',
+        'Accept'       : 'application/json',
+        'Authorization': `Token ${window.localStorage.getItem("token")}`,
+      }
+    }
+    )
   }
 
   userRegistration(credentials:Credentials){

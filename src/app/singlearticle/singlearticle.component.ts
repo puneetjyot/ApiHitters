@@ -30,6 +30,7 @@ export class SinglearticleComponent implements OnInit {
     
   }
     favArticle(){
+      if(!this.article.favorited){
       if(window.localStorage.getItem("token")!=null){
       this.services.postFavCount(this.article.slug)
       .subscribe((data:any)=>{
@@ -48,4 +49,21 @@ export class SinglearticleComponent implements OnInit {
 
     }
   }
+
+else{
+  if(window.localStorage.getItem("token")!=null){
+    this.services.delFavCount(this.article.slug)
+    .subscribe((data:any)=>{
+      console.log("del Request is successful",data.article)
+      this.article=data.article
+     },
+     error=>{
+      console.log("Error", error);
+     }
+     
+     
+     )
+}
+}
+    }
 }
