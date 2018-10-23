@@ -59,16 +59,16 @@ slug:string;
   }
 }
    post(){
-     if(this.slug==""){
+     if(this.slug=="createarticle"){
     let values = this.postForm.value;
-    console.log(values);
+    console.log(values+"jjkfjfvjfvj");
      this.services.postArticle(values);
      this.router.navigateByUrl('/home');
     }
   
   else{
     let values = this.postForm.value;
-    console.log(values);
+    console.log(values+this.slug);
      this.services.updateArticle(values,this.slug);
      this.router.navigateByUrl('/home');
   }
