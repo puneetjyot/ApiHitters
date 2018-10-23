@@ -31,9 +31,17 @@
 
                   class="form-control" placeholder="Enter tags"><div class="tag-list"></div>
               </fieldset>
+              <div *ngIf="slug==''">
               <button class="btn btn-lg pull-xs-right btn-success" type="submit">
                   Publish Article
               </button>
+            </div>
+            <div *ngIf="slug!=''">
+                <button class="btn btn-lg pull-xs-right btn-success" type="submit">
+                    Update Article
+                </button>
+              </div>
+
             </fieldset>
           </form>
         </div>

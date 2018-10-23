@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {ArticlesService} from '../articles.service'
 import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-profile',
@@ -17,7 +19,8 @@ followed:boolean;
 isRender:boolean=false;
   constructor(
     private services:ArticlesService,
-    private route:ActivatedRoute
+    private route:ActivatedRoute,
+    private router:Router
   ) {
     //this.followed=this.profile.following;
 
@@ -45,7 +48,7 @@ isRender:boolean=false;
 
     })
   }
-
+    console.log(this.isLoggedIn)
     this.services.getProfile(this.username,this.isLoggedIn)
     
     .subscribe(data=>{
@@ -75,6 +78,9 @@ isRender:boolean=false;
     this.services.UnfollowUser(this.profile.username);
 
     this.followed=!this.profile.following;
+  }
+  navigateSetting(){
+    this.router.navigateByUrl('/setting')
   }
 
 

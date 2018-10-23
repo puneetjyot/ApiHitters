@@ -29,6 +29,8 @@ import { NavpilsComponent } from './navpils/navpils.component';
 import { MyarticlesComponent } from './myarticles/myarticles.component';
 import { HomearticlesComponent } from './homearticles/homearticles.component';
 import { FavouritearticlesComponent } from './favouritearticles/favouritearticles.component';
+import { InfiniteScrollModule} from 'ngx-infinite-scroll';
+import {AuthGuardGuard} from './auth-guard.guard'
 
 const appRoutes : Routes = [
   {
@@ -44,13 +46,20 @@ const appRoutes : Routes = [
     path:'article/:slug',component:ArticledescriptionComponent
   },
   {
-    path:'home',component:Home1Component
+    canActivate:[AuthGuardGuard],
+    path:'home',component:Home1Component,
+    
+
   },
   {
+    canActivate:[AuthGuardGuard],
     path:'setting',component:SettingComponent
   },
-  {
+  {canActivate:[AuthGuardGuard],
     path:'createarticle',component:CreatearticleComponent
+  },
+  { canActivate:[AuthGuardGuard],
+    path:'createarticle/:slug',component:CreatearticleComponent
   },
   {
     path:'profile/:username',component:ProfileComponent
@@ -91,6 +100,7 @@ const appRoutes : Routes = [
   imports: [
     BrowserModule,
     HttpClientModule,
+    InfiniteScrollModule,
     RouterModule.forRoot(
       appRoutes,{onSameUrlNavigation: "reload"}, 
   

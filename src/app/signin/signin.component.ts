@@ -15,6 +15,7 @@ export class SigninComponent implements OnInit {
   title: String = '';
   isSubmitting: boolean = false;
   authForm: FormGroup;
+  errorarr=[];
 
   constructor(
     private route: ActivatedRoute,
@@ -45,13 +46,56 @@ export class SigninComponent implements OnInit {
     
    if(credentials.username==undefined){
      console.log("yes")
-     this.services.userLogin(credentials);
-     this.router.navigateByUrl('/home');
+     this.services.userLogin(credentials)
+     .subscribe(data=>{
+      console.log("POST Request is successful",data)
+      //@ts-ignore
+      window.localStorage.setItem("token",data.user.token)
+      this.router.navigateByUrl('/home');
+     },
+     error=>{
+      console.log(error.error.errors);
+      const errors = error.error.errors;
+      for(var key in errors){
+        const msgs = errors[key];
+        // cons
+        if(errors.hasOwnProperty(key)){
+          for(let i=0;i<msgs.length;i++){
+            this.errorarr.push(`${key} : ${msgs[i]}`);
+          }
+        }
+      }
+      console.log(this.errorarr);
+     }
+     
+     
+     )
    }
    else{
      console.log("no")
-     this.services.userRegistration(credentials);
-     this.router.navigateByUrl('/login');
+     this.services.userRegistration(credentials)
+     .subscribe(data=>{
+      console.log("POST Request is successful",data)
+      this.router.navigateByUrl('/login');
+     },
+     error=>{
+      console.log("Error", error);
+      const errors = error.error.errors;
+      for(var key in errors){
+        const msgs = errors[key];
+        // cons
+        if(errors.hasOwnProperty(key)){
+          for(let i=0;i<msgs.length;i++){
+            this.errorarr.push(`${key} : ${msgs[i]}`);
+          }
+        }
+      }
+      console.log(this.errorarr);
+     }
+     
+     
+     )
+     
 
    }
     console.log(credentials);

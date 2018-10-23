@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient }    from '@angular/common/http';
 import { Router } from '@angular/router';
-
+import * as Rx from 'rxjs';
 
 interface Credentials{
   email:string,
@@ -18,6 +18,9 @@ interface ArticleValues{
 
 }
 
+const subject=new Rx.ReplaySubject(2,100);
+
+
 interface Comment{
   comment:string;
 }
@@ -25,6 +28,8 @@ interface Comment{
 @Injectable({
   providedIn: 'root'
 })
+
+
 
 export class ArticlesService {
 
@@ -34,12 +39,48 @@ export class ArticlesService {
   constructor(private Http:HttpClient,
     private router:Router) { }
 
-  getAllArticles(){
-    return this.Http.get(`${this.BASE_URL}/articles`)
+
+    getSubject(){
+      return subject;
+    }
+
+    updateSubject(){
+      subject.next('');
+    }
+
+  getAllArticles(offset){
+    if(window.localStorage.getItem("token")!=""){
+    return this.Http.get(`${this.BASE_URL}/articles?offset=${offset}`,
+    {
+      headers:{
+        'Content-Type' : 'application/json; charset=utf-8',
+        'Accept'       : 'application/json',
+        'Authorization': `Token ${window.localStorage.getItem("token")}`,
+      }
+    }
+    )
   }
+  else{
+    return this.Http.get(`${this.BASE_URL}/articles?offset=${offset}`)
+
+  }
+}
   getArticle(slug:string){
+    let IsLogged:boolean=window.localStorage.getItem("token")!=undefined
+    if(IsLogged){
+    return this.Http.get(`${this.BASE_URL}/articles/${slug}`,
+    {
+      headers:{
+        'Content-Type' : 'application/json; charset=utf-8',
+        'Accept'       : 'application/json',
+        'Authorization': `Token ${window.localStorage.getItem("token")}`,
+      }
+    })
+  }
+  else{
     return this.Http.get(`${this.BASE_URL}/articles/${slug}`)
   }
+}
 
   getComments(slug:string){
     console.log(slug)
@@ -102,6 +143,15 @@ export class ArticlesService {
     return this.Http.get(`${this.BASE_URL}/articles?favorited=${username}`)
 
   }
+  getTags(){
+    return this.Http.get(`${this.BASE_URL}/tags`);
+  }
+
+  gettagArticles(tag){
+    return this.Http.get(`${this.BASE_URL}/articles/?tag=${tag}`);
+  }
+
+
 
   postFavCount(slug:string){
     return this.Http.post(`${this.BASE_URL}/articles/${slug}/favorite`,
@@ -114,15 +164,7 @@ export class ArticlesService {
       }
     }
     )
-    .subscribe(data=>{
-      console.log("POST Request is successful",data)
-     },
-     error=>{
-      console.log("Error", error);
-     }
-     
-     
-     )
+    
 
   }
 
@@ -131,20 +173,12 @@ export class ArticlesService {
    return this.Http.post(`${this.BASE_URL}/users`,
    {
     "user":{
-      "username": "Jacobcddhcbbdcbdca",
-      "email": "punadsbhsdhssxa@google.com",
-      "password":"abcxssxssaassa"
+      "username": credentials.username,
+      "email": credentials.email,
+      "password":credentials.password
     }
    })
-   .subscribe(data=>{
-    console.log("POST Request is successful",data)
-   },
-   error=>{
-    console.log("Error", error);
-   }
-   
-   
-   )
+  
   }
 
   userLogin(credentials:Credentials){
@@ -152,22 +186,11 @@ export class ArticlesService {
    return this.Http.post(`${this.BASE_URL}/users/login`,
    {
     "user":{
-      "email": "pandaxpress@gmail.com",
-      "password":"pandapanda"
+      "email": credentials.email,
+      "password":credentials.password
     }
    })
-   .subscribe(data=>{
-    console.log("POST Request is successful",data)
-    //@ts-ignore
-    window.localStorage.setItem("token",data.user.token)
-
-   },
-   error=>{
-    console.log("Error", error);
-   }
-   
-   
-   )
+  
   }
 
   postArticle(values:ArticleValues){
@@ -202,6 +225,64 @@ export class ArticlesService {
      )  
   }
   }
+  updateArticle(values:ArticleValues,slug:string){
+
+    if(window.localStorage.getItem("token")!=null){
+    return this.Http.put(`${this.BASE_URL}/articles/${slug}`,
+    {
+      "article": {
+        "title": values.Title,
+        "description": values.Subject,
+        "body": values.Body,
+        "tagList": ["reactjs", "angularjs", "dragons"]
+      }
+
+    },
+    {
+      headers: {
+        'Content-Type' : 'application/json; charset=utf-8',
+        'Accept'       : 'application/json',
+        'Authorization': `Token ${window.localStorage.getItem("token")}`,
+      }
+    })
+    .subscribe(data=>{
+      console.log("PuT Request is successful",data)
+     
+     },
+     error=>{
+      console.log("Error", error);
+     }
+     
+     
+     )  
+  }
+  }
+
+  deleteArticle(slug){
+   
+      return this.Http.delete(`${this.BASE_URL}/articles/${slug}`,
+     
+      {
+        headers: {
+          'Content-Type' : 'application/json; charset=utf-8',
+          'Accept'       : 'application/json',
+          'Authorization': `Token ${window.localStorage.getItem("token")}`,
+        }
+      })
+      .subscribe(data=>{
+        console.log("Delete Request is successful",data)
+       
+       },
+       error=>{
+        console.log("Error", error);
+       }
+       
+       
+       )  
+    }
+    
+  
+  
 
   postComment(values:Comment,slug:string){
 
@@ -219,18 +300,7 @@ export class ArticlesService {
       }
 
      })
-     .subscribe(data=>{
-      console.log("POST Request is successful",data)
      
-     
-     },
-     error=>{
-      console.log("Error", error);
-     }
-     
-     
-     )  
-
   }
 
   followUser(username:string){
@@ -293,6 +363,7 @@ export class ArticlesService {
        })
        .subscribe(data=>{
         console.log("POST Request is successful",data)
+        this.updateSubject();
        
        
        },
@@ -324,4 +395,32 @@ export class ArticlesService {
       window.localStorage.removeItem("token")
 
     }
-}
+
+    favoriteArticles(slug:string){
+      return this.Http.post(`${this.BASE_URL}/articles/${slug}/favorite`,
+      
+      {},
+      {
+        headers: {
+          'Content-Type' : 'application/json; charset=utf-8',
+          'Accept'       : 'application/json',
+          'Authorization': `Token ${window.localStorage.getItem("token")}`,
+        }
+      })
+     
+    }
+    UnfavoriteArticles(slug:string){
+      return this.Http.delete(`${this.BASE_URL}/articles/${slug}/favorite`,
+      
+    
+      {
+        headers: {
+          'Content-Type' : 'application/json; charset=utf-8',
+          'Accept'       : 'application/json',
+          'Authorization': `Token ${window.localStorage.getItem("token")}`,
+        }
+      })
+     
+    }
+
+  }

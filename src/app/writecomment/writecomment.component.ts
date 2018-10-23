@@ -11,6 +11,9 @@ import { Router } from '@angular/router';
 export class WritecommentComponent implements OnInit {
   postForm: FormGroup;
   @Input() article:any;
+  slug:string;
+  displaycomments:any;
+  commentdata:any;
   constructor(
     private fb: FormBuilder,
     private services:ArticlesService,
@@ -23,15 +26,20 @@ export class WritecommentComponent implements OnInit {
    }
 
   ngOnInit() {
+    
   }
 
   postComment(){
     let values = this.postForm.value;
     console.log(values);
    
-    this.services.postComment(values,this.article.slug);
-    this.router.navigateByUrl('/home', { skipLocationChange: true });
-this.router.navigateByUrl(`/article/${this.article.slug}`);
+    this.services.postComment(values,this.article.slug)
+    .subscribe((data:any)=>{
+        this.commentdata=data.comment;
+        this.services.updateSubject();
+
+    })
+
    // this.router.navigate(["../ArticledescriptionComponent"])
   }
 }

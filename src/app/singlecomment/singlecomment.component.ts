@@ -37,6 +37,7 @@ isRender:boolean=false;
   
    deleteComment(){
     this.services.deleteComment(this.slug,this.comment.id);
+    this.services.updateSubject();
 
     
     }

@@ -1,52 +1,54 @@
 <app-navbars></app-navbars>
 <div class="container">
-<div class="row">
-  <div class="col-md-6 col-xs-12 offset-md-3 d-center"><br/>
-    <br/>
-    <h1 class="text-xs-center">
-      {{title}}
-    </h1>
-    <p>
-    <a class="text-xs-center p-color"  routerLink="/register" routerLinkActive="active" *ngIf="authType == 'login'" >Need an account</a>
+  <div class="row">
+    <div class="col-md-6 col-xs-12 offset-md-3 d-center"><br />
+      <br />
+      <h1 class="text-xs-center">
+        {{title}}
+      </h1>
+      <p>
+        <a class="text-xs-center p-color" routerLink="/register" routerLinkActive="active" *ngIf="authType == 'login'">Need
+          an account</a>
 
-    <a class="text-xs-center p-color" routerLink="/login" routerLinkActive="active"  *ngIf="authType == 'register'" >Have an account</a>
-  </p>
-    <form [formGroup]="authForm" (ngSubmit)="submitForm()">
+        <a class="text-xs-center p-color" routerLink="/login" routerLinkActive="active" *ngIf="authType == 'register'">Have
+          an account</a>
+      </p>
+      <ul *ngIf="errorarr.length != 0">
+        <li style="color: red" *ngFor="let error of errorarr">
+          {{ error }}
+        </li>
+      </ul>
+      <!-- <p>{{}}</p> -->
+      <form [formGroup]="authForm" (ngSubmit)="submitForm()">
         <fieldset [disabled]="isSubmitting">
-            <fieldset class="form-group">
-              <input
-                formControlName="username"
-                placeholder="Username"
-                class="form-control form-control-lg"
-                type="text"
-                *ngIf="authType == 'register'" />
-            </fieldset>
-            <fieldset class="form-group">
-              <input
-                formControlName="email"
-                placeholder="Email"
-                class="form-control form-control-lg"
-                type="text" />
-            </fieldset>
-            <fieldset class="form-group">
-              <input
-                formControlName="password"
-                placeholder="Password"
-                class="form-control form-control-lg"
-                type="password" />
-            </fieldset>
-            <button class="btn btn-lg btn-primary pull-xs-right" type="submit">
-              {{ title }}
-            </button>
+          <fieldset class="form-group">
+            <input formControlName="username" placeholder="Username" class="form-control form-control-lg" type="text"
+              *ngIf="authType == 'register'" />
           </fieldset>
-        
-    </form>
- 
- 
- 
- 
- 
-  </div>
+          <fieldset class="form-group">
+            <input formControlName="email" placeholder="Email" class="form-control form-control-lg" type="text" />
+            <div *ngIf="authForm.controls['email'].errors">
+              Email is Invalid
+            </div>
+          </fieldset>
+          <fieldset class="form-group">
+            <input formControlName="password" placeholder="Password" class="form-control form-control-lg" type="password" />
+            <div *ngIf="authForm.controls['password'].errors">
+              Password is Invalid
+            </div>
+          </fieldset>
+          <button class="btn btn-lg btn-primary pull-xs-right" type="submit" [disabled]="authForm.invalid">
+            {{ title }}
+          </button>
+        </fieldset>
 
-</div>
+      </form>
+
+
+
+
+
+    </div>
+
+  </div>
 </div>

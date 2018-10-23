@@ -30,6 +30,16 @@ export class CommentComponent implements OnInit {
 
     );
 
-  }
+    this.services.getSubject()
+    .subscribe((data:any)=>{
+      this.services.getComments(this.slug)
+      .subscribe(data=>{
+        //@ts-ignore
+        this.displaycomments=data.comments;
+    })
+
+  })
+}
+
 
 }

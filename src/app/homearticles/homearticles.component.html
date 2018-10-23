@@ -1,3 +1,18 @@
-<div *ngFor="let article of displaydata">
+<div class="row">
+    <div class="col-sm-9" infiniteScroll (scrolled)="onScroll()">
+    <div  *ngFor="let article of displaydata">
 <app-singlearticle [article]="article"></app-singlearticle>
 </div>
+</div>
+<div class=" col-md-3">
+        <div class="sidebar">
+          <p>Popular Tags</p>
+         <div (click) =filtertag(tag)  class=" btn badge badge-secondary mx-1 my-1" *ngFor="let tag of tags">
+             
+                  {{tag}}
+               
+         </div>
+      </div>
+        </div>
+    </div>
+      

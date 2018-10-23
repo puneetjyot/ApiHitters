@@ -1,7 +1,7 @@
 
 <div class="container">
     <div class="fav-icon">
-        <button class="btn align-content-end btn-sm " (click)="favArticle()">
+        <button class="btn align-content-end btn-sm " (click)="favArticle()" [ngClass]="{'activeColor':article.favorited}">
             <i class="far fa-heart"></i>
             {{article.favoritesCount}}
         </button>
@@ -9,19 +9,20 @@
   <div class="d-flex py-2">
       
       
-      <a class="nav-link" style="color:black;" routerLink="/profile/{{article.author.username}}" routerLinkActive="active">
-<div>
-    <img src="{{article.author.image}}" height=25 width=25 class="rounded-circle">
+      <a class="nav-link d-flex" style="color:black;" routerLink="/profile/{{article.author.username}}" routerLinkActive="active">
+<span>
+    <img src="{{article.author.image}}" height=35 width=35 class="rounded-circle">
     
-  </div>
+</span>
     <div>
   <div class="px-2">
-    <p style="color:rgb(30, 247, 30)">{{article.author.username}}
+    <p style="color:rgb(30, 247, 30)" class="mb-0">{{article.author.username}}
       </p>
     </div>
+    <div class="date text-secondary">{{article.updatedAt| date: 'MMMM d, y'}}</div>
   </div>
 
-  <div class="date text-secondary">{{article.updatedAt| date: 'MMMM d, y'}}</div>
+  
 
 </a>
 </div>

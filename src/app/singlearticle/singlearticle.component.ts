@@ -32,6 +32,16 @@ export class SinglearticleComponent implements OnInit {
     favArticle(){
       if(window.localStorage.getItem("token")!=null){
       this.services.postFavCount(this.article.slug)
+      .subscribe((data:any)=>{
+        console.log("POST Request is successful",data.article)
+        this.article=data.article
+       },
+       error=>{
+        console.log("Error", error);
+       }
+       
+       
+       )
     }
     else{
       this.router.navigateByUrl('/register');

@@ -1,4 +1,4 @@
-
+<div *ngIf="isRender">
 <div class="img-name d-flex div-secondary pb-3 pt-3 ">
     <img src="{{article.author.image}}" height=35 width=35 class="rounded-circle">
     <div>
@@ -6,23 +6,37 @@
     <h6 class="font-weight-light fsize py-0">{{article.updatedAt | date: 'MMMM d, y'}}</h6>
     </div>
     <div>
-    <button class="btn btn-outline-secondary btn-secondary ml-4 btn-sm" *ngIf="!isSame">
+    <div *ngIf="!followed">
+    <button class="btn btn-outline-secondary btn-secondary ml-4 btn-sm" *ngIf="!isSame"(click)="follow()"> 
         <i class="fas fa-plus"></i>
-        Follow {{article.author.username}}
+        
+        Follow {{article.author.username}} 
     </button>
-    <button class="btn btn-outline-secondary btn-secondary ml-4 btn-sm" *ngIf="isSame">
+    </div>
+    <div *ngIf="followed">
+            <button class="btn btn-outline-secondary btn-secondary ml-4 btn-sm" *ngIf="!isSame"(click)="unFollow()"> 
+                <i class="fas fa-plus"></i>
+                UnFollow {{article.author.username}}
+            </button>
+            </div>
+
+    <button class="btn btn-outline-secondary btn-secondary ml-4 btn-sm" *ngIf="isSame" (click)="edit()">
             <i class="fas fa-pen"></i>            
             Edit Article
         </button>
     </div>
     <div>
-        <button class="btn btn-outline-success btn-success btn-sm ml-1" *ngIf="!isSame">
+   
+        <button class="btn btn-outline-success btn-success btn-sm ml-1" *ngIf="!isSame"(click)=" handleFavorite()">
             <i class="fas fa-heart"></i>
-            Favourite Article
+           <span>{{article.favorited?'UnFavorite':'Favorite'}}</span> Article({{article.favoritesCount}})
         </button>
-        <button class="btn btn-outline-danger btn-danger btn-sm ml-1" *ngIf="isSame">
+    
+        <button class="btn btn-outline-danger btn-danger btn-sm ml-1" *ngIf="isSame" (click)="delete()">
                 <i class="fas fa-trash-alt"></i>             
                    Delete Article
             </button>
+            
         </div>  
     </div>
+</div>

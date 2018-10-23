@@ -4,6 +4,11 @@
   
     </div>
     <div class="col-sm-6 mb-4">
+        <ul *ngIf="errorarr.length != 0" style="list-style: none;">
+            <li style="color: red; " *ngFor="let error of errorarr">
+              {{ error }}
+            </li>
+          </ul>
       <form class="form-group" (ngSubmit)="onSubmit()" [formGroup]="userInputs">
         <input type="text" formControlName="url" class="form-control my-3 p-4" placeholder="URL of profile picture" autocomplete="off">
         <input type="text" formControlName="username" class="form-control my-3 p-4" placeholder="Username" value="" required autocomplete="off">

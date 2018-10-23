@@ -13,17 +13,23 @@ export class NavtabsComponent implements OnInit {
   @Output() loadYour=new EventEmitter()
   authType:string="";
   feed:string="global";
+  isGlobal = false;
   loadGlobalFeed(){
-
     this.feed="global";
-    
+    this.isGlobal=true;
+    console.log(this.isGlobal);
     this.loadGlobal.emit(this.feed)
  
   } 
   loadYourFeed(){
     this.feed="your";
-    
+    this.isGlobal=false;
+    console.log(this.isGlobal);
     this.loadYour.emit(this.feed)
+  }
+
+  get feedType() {
+    return this.isGlobal
   }
 
 

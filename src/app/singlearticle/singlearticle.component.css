@@ -11,3 +11,6 @@ a:hover,img:hover,p:hover,h5:hover{
 .fav-icon{
     float: right;
 }
+.activeColor{
+    background-color: rgb(66, 182, 66)
+}
